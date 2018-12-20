@@ -38,7 +38,10 @@ def lambda_handler(event, context):
     # Boto3 currently in lambda is out of date and does not support layers
     # So, install Boto3 to tmp dir, and then use that - so we can use publish_layer_version
     install(['boto3'], helper_dir)
-    install(['setuptools', 'wheel']) # these are needed to install packages
+    
+    # these are needed to install packages
+    install(['setuptools', 'wheel'], helper_dir)
+    
     sys.path.insert(0, helper_dir) # Put new boto3 to front of path so we use this latest one
     os.environ['PYTHONPATH'] = helper_dir + ";" + os.environ['PYTHONPATH']
     print("PYTHONPATH: {}".format(os.environ['PYTHONPATH']))
